@@ -12,9 +12,9 @@ class InfoWindow:
         self.address = self.contact.getAddress()
         self.phone = self.contact.getPhone()
         self.email = self.contact.getEmail()
+
         image = Image.open(self.contact.getPhoto())
         self.photo = ImageTk.PhotoImage(image)
-        # self.frame = Frame(self.win,width=200, height=200)
 
         self.button_new_contact = Button(text="Add Contact", command=self.new_contact)
         self.button_new_contact.grid(row=3, column=3)
@@ -27,10 +27,8 @@ class InfoWindow:
         self.button_show_contact.grid_forget()
         self.button_new_contact.grid_forget()
 
-        # canvas = Canvas(self.win, width=100, height=100)
-        # canvas.grid(row=0, column=0)
-        # canvas.create_image(10, 10, image=self.photo)
         self.show_photo()
+
         Label(self.win, text="Name:").grid(row=1,column=0)
         Label(self.win, text="Address:").grid(row=2,column=0)
         Label(self.win, text="Phone:").grid(row=3,column=0)
@@ -49,10 +47,10 @@ class InfoWindow:
 
     def edit_contact(self, contact):
         self.button_edit.grid_forget()
-        Label(self.win, text="Name:").grid(row=0)
-        Label(self.win, text="Address:").grid(row=1)
-        Label(self.win, text="Phone:").grid(row=2)
-        Label(self.win, text="Email:").grid(row=3)
+        # Label(self.win, text="Name:").grid(row=0)
+        # Label(self.win, text="Address:").grid(row=1)
+        # Label(self.win, text="Phone:").grid(row=2)
+        # Label(self.win, text="Email:").grid(row=3)
 
         name_ = Entry(self.win)
         name_.insert(END, self.name)
@@ -63,10 +61,10 @@ class InfoWindow:
         email_ = Entry(self.win, textvariable=contact.getEmail())
         email_.insert(END, self.email)
 
-        name_.grid(row=0, column=1)
-        address_.grid(row=1, column=1)
-        phone_.grid(row=2, column=1)
-        email_.grid(row=3, column=1)
+        name_.grid(row=1, column=1)
+        address_.grid(row=2, column=1)
+        phone_.grid(row=3, column=1)
+        email_.grid(row=4, column=1)
 
         # addressbook method to change a contact
         contact.setName(name_.get())
