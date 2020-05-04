@@ -51,7 +51,16 @@ class AddressBook:
 
     #TODO Add method for editing contact info
     def editContact (self,key):
-        pass
+        found = self.address_book.get(key)
+        #TODO Add returning every key back to entry/input so as to be modified
+        #TODO Add updating any changes done by user
+        #Update key to newest name
+        keyword = found['Name']
+        if key == keyword:
+            self.address_book[key] = found
+        else:
+            self.address_book[keyword] = self.address_book.pop(key)
+            self.address_book[keyword] = found
 
 
     #TODO Add a sorted list of contacts
