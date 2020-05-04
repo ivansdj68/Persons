@@ -29,11 +29,10 @@ class AddressBook:
             no_dashes = info.replace('-', '')
             return self.getContactByPhone(no_dashes)
         elif info[0].isalpha():
-            if info.find('@') >= 0:
+            if info.find('@') > 0:
                 return self.getContactByEmail(info)
             else:
                 return self.getContactByName(info)
-
 
     def getContactByName(self, contact_name):
         for c in range(len(self.book)):

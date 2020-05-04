@@ -5,11 +5,17 @@ class AddressBookWindow:
 
     def __init__(self, master, address_book):
         self.master = master
+        window_width = 300
+        window_height = 300
+        display_x = str(self.master.winfo_screenwidth()//2 - window_width//2)
+        display_y = str(self.master.winfo_screenheight()//2 - window_height//2)
+        self.master.geometry(str(window_width) + 'x' + str(window_height) + '+' + display_x + '+' + display_y)
         self.adBook = address_book
         self.buttons = [Button(self.master, text="Add"), Button(self.master, text="Delete"),
                         Button(self.master, text="Edit"), Button(self.master, text="Sort"),
                         Button(self.master, text="Search")]
         self.search_entry = Entry(self.master, text="Search Contact")
+        self.search_entry.bind("<Return>", self.searchEvent)
         self.draw_widgets()
 
     def draw_names(self):
