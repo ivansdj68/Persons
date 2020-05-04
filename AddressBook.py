@@ -12,7 +12,6 @@ class AddressBook:
     def addContact(self, contact):
         self.book.append(contact)
         self.size += 1
-        #self.book.sort(key=contact.getName())
 
     def deleteContact(self, contact):
         self.book.remove(contact)
@@ -24,7 +23,9 @@ class AddressBook:
         self.book.insert(index, contact)
 
     def getContact(self, info):
-        if info[0].isdigit():
+        if info is None or info == '':
+            return None
+        elif info[0].isdigit():
             no_dashes = info.replace('-', '')
             return self.getContactByPhone(no_dashes)
         elif info[0].isalpha():
@@ -32,6 +33,7 @@ class AddressBook:
                 return self.getContactByEmail(info)
             else:
                 return self.getContactByName(info)
+
 
     def getContactByName(self, contact_name):
         for c in range(len(self.book)):
