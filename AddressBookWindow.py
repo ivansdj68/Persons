@@ -11,6 +11,7 @@ class AddressBookWindow:
         display_y = str(self.master.winfo_screenheight()//2 - window_height//2)
         self.master.geometry(str(window_width) + 'x' + str(window_height) + '+' + display_x + '+' + display_y)
         self.adBook = address_book
+        self.contact_list = self.adBook.getContacts()
         self.buttons = [Button(self.master, text="Add"), Button(self.master, text="Delete"),
                         Button(self.master, text="Edit"), Button(self.master, text="Sort"),
                         Button(self.master, text="Search")]
@@ -20,9 +21,8 @@ class AddressBookWindow:
 
     def draw_names(self):
         y = 30
-        for c in range(self.adBook.getSize()):
-            contact_name = self.adBook.getContactByIndex(c).getName()
-            button = Button(self.master, text=contact_name)
+        for c in self.contact_list:
+            button = Button(self.master, text=c)  # Draws button with contact name
             button.bind("<Button-1>", func=self.showInfoEvent)
             button.place(x=0, y=y)
             y += 30
@@ -77,9 +77,10 @@ class AddressBookWindow:
         print("Sort")
 
     def searchEvent(self, event):
-        contact_info = self.search_entry.get()
-        contact = self.adBook.getContact(contact_info)
+        contact_name = self.search_entry.get()
+        contacts = self.adBook.searchList(contact_name)  # List with contacts that match
+        self.contact_list = contacts
         try:
-            contact.showInfo()
+            contacts.showInfo()
         except AttributeError:
             print("Invalid search criteria or contact does not exist")

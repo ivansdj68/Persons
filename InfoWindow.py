@@ -2,7 +2,6 @@ from contacts import Contacts
 from tkinter import *
 from PIL import ImageTk, Image
 
-
 class InfoWindow:
     def __init__(self, win, contact):
         self.win = win
