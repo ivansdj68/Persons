@@ -7,6 +7,7 @@ class InfoWindow:
     def __init__(self, win):
         self.win = win
         self.win.geometry("400x500")
+        self.win.resizable(False, False)
         self.win.grid_columnconfigure(0, weight=1)
         self.win.grid_rowconfigure(0, weight=1)
 
@@ -16,8 +17,6 @@ class InfoWindow:
         self.email = "name@email.com"
 
         image = Image.open("blank_profile.jpg")
-        # height = 50
-        # width = int(height / image.height() * image.width())
         image = image.resize((300, 300), Image.ANTIALIAS)
 
         self.photo = ImageTk.PhotoImage(image)
@@ -33,57 +32,14 @@ class InfoWindow:
         # self.frame_button.grid_columnconfigure(0, weight=1)
         # self.frame_button.grid_rowconfigure(0, weight=1)
 
-        self.frame_photo.grid(row=0,sticky=N)
+        self.frame_photo.grid(row=0, sticky=N)
         self.frame_info.grid(row=1)
-        self.frame_button.grid(row=2,sticky=S)
+        self.frame_button.grid(row=2, sticky=S)
 
-    def show_contact(self):
-        self.show_photo()
-        Label(self.frame_info, text="Name:", font="Helvetica 15").grid(row=0, column=0, sticky=W,padx=10,pady=10)
-        Label(self.frame_info, text="Address:", font="Helvetica 15").grid(row=1, column=0, sticky=W,padx=10,pady=10)
-        Label(self.frame_info, text="Phone:", font="Helvetica 15").grid(row=2, column=0, sticky=W,padx=10,pady=10)
-        Label(self.frame_info, text="Email:", font="Helvetica 15").grid(row=3, column=0, sticky=W,padx=10,pady=10)
-
-        nameLable = Label(self.frame_info, text=self.name, font="Helvetica")
-        nameLable.grid(row=0, column=1, sticky=W)
-        addressLable = Label(self.frame_info, text=self.address, font="Helvetica")
-        addressLable.grid(row=1, column=1, sticky=W)
-        phoneLable = Label(self.frame_info, text=self.phone, font="Helvetica")
-        phoneLable.grid(row=2, column=1, sticky=W)
-        emailLable = Label(self.frame_info, text=self.email, font="Helvetica")
-        emailLable.grid(row=3, column=1, sticky=W)
-
-    def edit_contact(self):
-        Label(self.frame_info, text="Name:", font="Helvetica 15").grid(row=0, column=0, sticky=W, padx=10, pady=10)
-        Label(self.frame_info, text="Address:", font="Helvetica 15").grid(row=1, column=0, sticky=W, padx=10, pady=10)
-        Label(self.frame_info, text="Phone:", font="Helvetica 15").grid(row=2, column=0, sticky=W, padx=10, pady=10)
-        Label(self.frame_info, text="Email:", font="Helvetica 15").grid(row=3, column=0, sticky=W, padx=10, pady=10)
-
-        name = Entry(self.frame_info)
-        name.insert(END, self.name)
-        address = Entry(self.frame_info, textvariable=self.address)
-        address.insert(END, self.address)
-        phone = Entry(self.frame_info, textvariable=self.phone)
-        phone.insert(END, self.phone)
-        email = Entry(self.frame_info, textvariable=self.email)
-        email.insert(END, self.email)
-
-        name.grid(row=0, column=1)
-        address.grid(row=1, column=1)
-        phone.grid(row=2, column=1)
-        email.grid(row=3, column=1)
-
-        # addressbook method to change a contact
-        # contact.setName(name_.get())
-        # contact.setAddress(address_.get())
-        # contact.setPhone(phone_.get())
-        # contact.setEmail(email_.get())
+        self.button = Button(self.frame_button, text="edit", command=self.edit_contact)
 
     def new_contact(self):
-        Label(self.frame_info, text="Name:", font="Helvetica 15").grid(row=0, column=0, sticky=W, padx=10, pady=10)
-        Label(self.frame_info, text="Address:", font="Helvetica 15").grid(row=1, column=0, sticky=W, padx=10, pady=10)
-        Label(self.frame_info, text="Phone:", font="Helvetica 15").grid(row=2, column=0, sticky=W, padx=10, pady=10)
-        Label(self.frame_info, text="Email:", font="Helvetica 15").grid(row=3, column=0, sticky=W, padx=10, pady=10)
+        self.create_infoLabel()
 
         name = Entry(self.frame_info)
         address = Entry(self.frame_info)
@@ -95,15 +51,65 @@ class InfoWindow:
         phone.grid(row=2, column=1)
         email.grid(row=3, column=1)
 
+    def create_infoLabel(self):
+        Label(self.frame_info, text="Name:", font="Helvetica 15").grid(row=0, column=0, sticky=W, padx=10, pady=10)
+        Label(self.frame_info, text="Address:", font="Helvetica 15").grid(row=1, column=0, sticky=W, padx=10, pady=10)
+        Label(self.frame_info, text="Phone:", font="Helvetica 15").grid(row=2, column=0, sticky=W, padx=10, pady=10)
+        Label(self.frame_info, text="Email:", font="Helvetica 15").grid(row=3, column=0, sticky=W, padx=10, pady=10)
+
+    def show_contact(self):
+        self.show_photo()
+        self.create_infoLabel()
+
+        self.nameLabel = Label(self.frame_info, text=self.name, font="Helvetica")
+        self.nameLabel.grid(row=0, column=1, sticky=W)
+        self.addressLabel = Label(self.frame_info, text=self.address, font="Helvetica")
+        self.addressLabel.grid(row=1, column=1, sticky=W)
+        self.phoneLabel = Label(self.frame_info, text=self.phone, font="Helvetica")
+        self.phoneLabel.grid(row=2, column=1, sticky=W)
+        self.emailLabel = Label(self.frame_info, text=self.email, font="Helvetica")
+        self.emailLabel.grid(row=3, column=1, sticky=W)
+
+        self.button.grid(sticky=NW)
+
+    def edit_contact(self):
+        self.create_infoLabel()
+
+        self.nameLabel.grid_forget()
+        self.addressLabel.grid_forget()
+        self.phoneLabel.grid_forget()
+        self.emailLabel.grid_forget()
+
+        nameEntry = Entry(self.frame_info)
+        nameEntry.insert(END, self.name)
+        addressEntry = Entry(self.frame_info, textvariable=self.address)
+        addressEntry.insert(END, self.address)
+        phoneEntry = Entry(self.frame_info, textvariable=self.phone)
+        phoneEntry.insert(END, self.phone)
+        emailEntry = Entry(self.frame_info, textvariable=self.email)
+        emailEntry.insert(END, self.email)
+
+        nameEntry.grid(row=0, column=1)
+        addressEntry.grid(row=1, column=1)
+        phoneEntry.grid(row=2, column=1)
+        emailEntry.grid(row=3, column=1)
+
+        self.button.configure(text="save",command=lambda: self.save_contact(nameEntry.get(), phoneEntry.get(), addressEntry.get(), emailEntry.get()))
+
+        # button_save = Button(self.button_edit, text="save", command=lambda: self.save_contact(name, phone, address, email))
+        # self.button_edit.configure(text = "save",command=lambda: self.save_contact(name, phone, address, email))
+
     def save_contact(self, name, address, phone, email):
+        # self.show_contact()
         pass
+
 
     def cancel(self):
         pass
 
     def show_photo(self):
-        image = Label(self.frame_photo,image=self.photo,height=200,width=200)
-        image.grid(padx=10,pady=10)
+        image = Label(self.frame_photo, image=self.photo, height=200, width=200)
+        image.grid(padx=10, pady=10)
 
     def edit_photo(self):
         pass
@@ -115,8 +121,8 @@ class InfoWindow:
 def main():
     root = Tk()
     IW = InfoWindow(root)
-    # IW.show_contact()
-    IW.new_contact()
+    IW.show_contact()
+    # IW.new_contact()
     root.mainloop()
 
 
