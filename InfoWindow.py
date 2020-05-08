@@ -1,3 +1,5 @@
+from tkinter import filedialog
+
 from addressbook import AddressBook
 from tkinter import *
 from PIL import ImageTk, Image
@@ -37,6 +39,7 @@ class InfoWindow:
         self.frame_button.grid(row=2, sticky=S)
 
         self.button = Button(self.frame_button, text="edit", command=self.edit_contact)
+        self.button_editPhoto = Button(self.frame_photo, text="edit", command=self.edit_photo)
 
     def new_contact(self):
         self.create_infoLabel()
@@ -95,24 +98,27 @@ class InfoWindow:
         emailEntry.grid(row=3, column=1)
 
         self.button.configure(text="save",command=lambda: self.save_contact(nameEntry.get(), phoneEntry.get(), addressEntry.get(), emailEntry.get()))
-
-        # button_save = Button(self.button_edit, text="save", command=lambda: self.save_contact(name, phone, address, email))
-        # self.button_edit.configure(text = "save",command=lambda: self.save_contact(name, phone, address, email))
+        self.button_editPhoto.grid()
 
     def save_contact(self, name, address, phone, email):
         # self.show_contact()
         pass
 
-
     def cancel(self):
         pass
 
     def show_photo(self):
-        image = Label(self.frame_photo, image=self.photo, height=200, width=200)
-        image.grid(padx=10, pady=10)
+        self.image = Label(self.frame_photo, image=self.photo, height=200, width=200)
+        self.image.grid(padx=10, pady=10)
 
     def edit_photo(self):
-        pass
+        file_path = filedialog.askopenfilename()
+
+        image = Image.open(file_path)
+        image = image.resize((300, 300), Image.ANTIALIAS)
+
+        self.photo = ImageTk.PhotoImage(image)
+        self.image.configure(image=self.photo)
 
     def exit_window(self):
         self.win.destroy()
