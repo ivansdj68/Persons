@@ -26,7 +26,6 @@ class AddressBook:
             }
         }
         self.contact_list = []
-        self.size = 3
 
     def add_contact(self, contact_info):
         """Adds contact info for each field available from contact_info array obtained in
@@ -38,12 +37,10 @@ class AddressBook:
         contact = {keyword: info}
         # Update dictionary
         self.address_book.update(contact)
-        self.size += 1
 
     def deleteContact(self, key):
         """Method that deletes a contact from a keyword selected from GUI"""
         del self.address_book[key]
-        self.size -= 1
 
     # new_contact_info can be an array with the following content:
     # new_contact_info = [old_name, new_name, new_phone, new_email, new_address]
@@ -72,7 +69,7 @@ class AddressBook:
         return names
 
     def get_size(self):
-        return self.size
+        return len(self.address_book)
 
 # # For Testing purposes
 # address = AddressBook()
