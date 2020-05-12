@@ -125,12 +125,14 @@ class InfoWindow:
 
     def show_photo(self):
         image = Image.open("blank_profile.jpg")
+        #blank profile has to be initialized
         image = image.resize((100, 100), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(image)
         self.image = Label(self.frame_photo, image=self.photo, height=100, width=100)
         self.image.grid(row=0, column=0)
 
     def edit_photo(self):
+        #need to save the photo
         file_path = filedialog.askopenfilename()
 
         image = Image.open(file_path)
