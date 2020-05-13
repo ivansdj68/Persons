@@ -1,143 +1,121 @@
 from tkinter import *
 from AddressBook import *
 
-
 class InfoWindow:
-    def __init__(self, win, address_bookObj, contact_name=None):
-        self.canvas = Canvas(master=win, width=300, height=300)
+    def __init__(self, win, address_bookObj, abw_obj, contact_name=None):
+        self.canvas = Canvas(master=win, width=295, height=295, bg="black", highlightcolor="yellow")
+        self.canvas.focus_set()
         self.canvas.place(x=300, y=0)
+
+        self.edit_button = Button(self.canvas, text="Edit", bg="black", fg="white",
+                                  command=lambda: self.edit_contact())
+
+        self.save_contact_button = Button(self.canvas, text="Save", bg="black", fg="white")
+
+        self.delete_contact_button = Button(self.canvas, text="Delete", bg="black", fg="white",
+                                            command=lambda: self.delete_contact())
+
+        self.cancel_button = Button(self.canvas, text="Cancel", bg="black", fg="white",
+                                    command=lambda: self.cancel())
+
+        self.stay_in_IW = True
 
         self.address_book = address_bookObj
 
-        if contact_name is not None:
+        self.address_book_window = abw_obj
+
+        if contact_name != "new":
             self.contact = self.address_book.searchList(contact_name)
+            self.show_contact()
         else:
             self.new_contact()
 
-        self.name_label = Label(self.canvas, text="Name:")
-        self.phone_label = Label(self.canvas, text="Phone:")
-        self.email_label = Label(self.canvas, text="Email:")
-        self.address_label = Label(self.canvas, text="Address:")
-        self.name_label.place(x=30, y=60)
-        self.phone_label.place(x=30, y=90)
-        self.email_label.place(x=30, y=120)
-        self.address_label.place(x=30, y=150)
+    def create_info_labels(self):
+        Label(self.canvas, text="Name:", bg="black", fg="white").place(x=30, y=60)
+        Label(self.canvas, text="Phone:", bg="black", fg="white").place(x=30, y=90)
+        Label(self.canvas, text="Email:", bg="black", fg="white").place(x=30, y=120)
+        Label(self.canvas, text="Address:", bg="black", fg="white").place(x=30, y=150)
 
-        self.contact_name_label = Label(self.canvas, text=self.contact.get("Name"))
-        self.contact_phone_label = Label(self.canvas, text=self.contact.get("Phone"))
-        self.contact_email_label = Label(self.canvas, text=self.contact.get("Email"))
-        self.contact_address_label = Label(self.canvas, text=self.contact.get("Address"))
-        self.contact_name_label.place(x=80, y=60)
-        self.contact_phone_label.place(x=80, y=90)
-        self.contact_email_label.place(x=80, y=120)
-        self.contact_address_label.place(x=80, y=150)
-
-        #  self.button_cancel = Button(text="Cancel", padx=5, command=self.exit_window)
+    def create_contact_labels(self):
+        contact_name_label = Label(self.canvas, text=self.contact.get("Name"), width=30, bg="black", fg="white")
+        contact_phone_label = Label(self.canvas, text=self.contact.get("Phone"), width=30, bg="black", fg="white")
+        contact_email_label = Label(self.canvas, text=self.contact.get("Email"), width=30, bg="black", fg="white")
+        contact_address_label = Label(self.canvas, text=self.contact.get("Address"), width=30, bg="black", fg="white")
+        contact_name_label.place(x=80, y=60)
+        contact_phone_label.place(x=80, y=90)
+        contact_email_label.place(x=80, y=120)
+        contact_address_label.place(x=80, y=150)
 
     def show_contact(self):
-        Label(self.canvas, text="Name:").place(x=0, y=30)
-        Label(self.canvas, text="Phone:").pack()
-        Label(self.canvas, text="Email:").pack()
-        Label(self.canvas, text="Address:").pack()
-
-        name_label = Label(self.canvas, text=self.contact.get("Name"))
-        name_label.pack()
-        phone_label = Label(self.canvas, text=self.contact.get("Phone"))
-        phone_label.pack()
-        email_label = Label(self.canvas, text=self.contact.get("Email"))
-        email_label.pack()
-        address_label = Label(self.canvas, text=self.contact.get("Address"))
-        address_label.pack()
-        button_edit = Button(text="Edit", command=lambda: self.edit_contact)
-        button_edit.pack()
+        self.create_info_labels()
+        self.create_contact_labels()
+        self.save_contact_button.place_forget()
+        self.edit_button.place(x=160, y=200)
+        self.delete_contact_button.place(x=200, y=200)
+        self.cancel_button.place(x=250, y=200)
+        self.stay_in_IW = False
 
     def edit_contact(self):
-        Label(self.canvas, text="Name:").pack()
-        Label(self.canvas, text="Address:").pack()
-        Label(self.canvas, text="Phone:").pack()
-        Label(self.canvas, text="Email:").pack()
+        self.edit_button.place_forget()
+        self.delete_contact_button.place_forget()
+        self.stay_in_IW = True
 
-        name_ = Entry(self.canvas, textvariable=self.contact.get("Name"))
-        phone_ = Entry(self.canvas, textvariable=self.contact.get("Phone"))
-        email_ = Entry(self.canvas, textvariable=self.contact.get("Email"))
-        address_ = Entry(self.canvas, textvariable=self.contact.get("Name"))
+        name_ = Entry(self.canvas, width=35)
+        phone_ = Entry(self.canvas, width=35)
+        email_ = Entry(self.canvas, width=35)
+        address_ = Entry(self.canvas, width=35)
+        name_.insert(END, self.contact.get("Name"))
+        phone_.insert(END, self.contact.get("Phone"))
+        email_.insert(END, self.contact.get("Email"))
+        address_.insert(END, self.contact.get("Address"))
+        name_.place(x=80, y=60)
+        phone_.place(x=80, y=90)
+        email_.place(x=80, y=120)
+        address_.place(x=80, y=150)
 
-        name_.pack()
-        name_.focus()
-        phone_.pack()
-        email_.pack()
-        address_.pack()
-
-        button_save_contact = Button(text="Save", padx=5,
-                                     command=lambda:
-                                     self.save_contact(name_.get(), phone_.get(), email_.get(), address_.get()))
-        button_save_contact.pack()
+        self.save_contact_button.config(command=lambda:
+                                        self.save_contact(name_.get(), phone_.get(), email_.get(), address_.get()))
+        self.save_contact_button.place(x=200, y=200)
 
     def new_contact(self):
-        self.button_new_contact.grid_forget()
-        self.button_show_contact.grid_forget()
-        Label(self.canvas, text="Name:").grid(row=0)
-        Label(self.canvas, text="Address:").grid(row=1)
-        Label(self.canvas, text="Phone:").grid(row=2)
-        Label(self.canvas, text="Email:").grid(row=3)
+        self.edit_button.place_forget()
+        self.create_info_labels()
 
-        name_ = Entry(self.canvas)
-        address_ = Entry(self.canvas)
-        phone_ = Entry(self.canvas)
-        email_ = Entry(self.canvas)
+        name_ = Entry(self.canvas, width=35)
+        phone_ = Entry(self.canvas, width=35)
+        email_ = Entry(self.canvas, width=35)
+        address_ = Entry(self.canvas, width=35)
 
-        name_.grid(row=0, column=1)
-        address_.grid(row=1, column=1)
-        phone_.grid(row=2, column=1)
-        email_.grid(row=3, column=1)
+        name_.place(x=80, y=60)
+        phone_.place(x=80, y=90)
+        email_.place(x=80, y=120)
+        address_.place(x=80, y=150)
 
-        button_save_contact = Button(text="Save", padx=5,
-                                     command=lambda:
-                                     self.save_contact(name_.get(), phone_.get(), email_.get(), address_.get()))
-        button_save_contact.pack()
-        self.button_cancel.pack()
+        self.save_contact_button.config(command=lambda:
+                                        self.save_contact(name_.get(), phone_.get(), email_.get(), address_.get()))
+        self.save_contact_button.place(x=200, y=200)
+
+        self.cancel_button.place(x=250, y=200)
+
+        self.stay_in_IW = False
 
     def save_contact(self, name, phone, email, address):
         new_info = [name, phone, email, address]
-        if self.address_book.isNameInAddressBook(self.contact["Name"]):
+        if self.stay_in_IW is True and self.address_book.isNameInAddressBook(self.contact["Name"]):
             self.address_book.editContact(new_info)
         else:
             self.address_book.add_contact(new_info)
+            self.contact = self.address_book.searchList(new_info[0])
+            self.show_contact()
+            self.address_book_window.draw_widgets()
 
     def delete_contact(self):
         self.address_book.deleteContact(self.contact["Name"])
-
-    def cancel(self):
-        pass
-
-    def clearWidgets(self):
-        self.name_label.pack_forget()
-        self.phone_label.pack_forget()
-        self.email_label.pack_forget()
-        self.address_label.pack_forget()
-        self.contact_name_label.pack_forget()
-        self.contact_name_label.pack_forget()
-        self.contact_phone_label.pack_forget()
-        self.contact_email_label.pack_forget()
-        self.contact_address_label.pack_forget()
-
-    # def show_photo(self):
-    #     #resize height and width
-    #     canvas = Canvas(self.canvas, width=100, height=100)
-    #     canvas.grid(row=0, column=0)
-    #     canvas.create_image(10, 10, image=self.photo)
-    #
-    #
-    # def edit_photo(self):
-    #     pass
-
-    def exit_window(self):
+        self.address_book_window.draw_widgets()
         self.canvas.destroy()
 
-# def main():
-#     root = Tk()
-#     #contact = Contacts("name", "phone", "email", "address")
-#     InfoWindow(root)
-#     root.mainloop()
-#
-# main()
+    def cancel(self):
+        if self.stay_in_IW:
+            self.show_contact()
+        else:
+            self.canvas.destroy()

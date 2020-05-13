@@ -6,19 +6,19 @@ class AddressBook:
         self.fields = ['Name', 'Phone', 'Email', 'Address']
         # TODO Add CSV import to address_book and contact_list
         self.address_book = {
-            'Juan Pablo': {
+            'Juan Pablo Del Pueblo': {
                 self.fields[0]: 'Juan Pablo Del Pueblo',
                 self.fields[1]: '787-777-9999',
                 self.fields[2]: 'juanPablo@coqui.net',
                 self.fields[3]: 'Calle Jurutungo, Utuado, PR, 00759'
             },
-            "Maria": {
-                self.fields[0]: 'María Magdalena del Pilar',
+            'Maria Magdalena del Pilar': {
+                self.fields[0]: 'Maria Magdalena del Pilar',
                 self.fields[1]: '787-787-9999',
                 self.fields[2]: 'maria@coqui.net',
                 self.fields[3]: 'Calle Calle, Vieques, PR, 00000'
             },
-            'Juan Pedro': {
+            'Juan Pedro Del Pueblo': {
                 self.fields[0]: 'Juan Pedro Del Pueblo',
                 self.fields[1]: '787-797-9999',
                 self.fields[2]: 'juanPedro@coqui.net',
@@ -53,11 +53,27 @@ class AddressBook:
         del self.address_book[new_contact_info[0]]
         self.address_book.update({new_contact_info[1]: current_contact_info})
 
+    #TODO Add method for editing contact info
+    def editContact(self, key, newinfo):
+        found = self.address_book.get(key)
+        #TODO Add returning every key back to entry/input so as to be modified
+        #TODO Add updating any changes done by user
+        #Update key to newest name
+        keyword = found['Name']
+        if key == keyword:
+            self.address_book[key] = found
+        else:
+            self.address_book[keyword] = self.address_book.pop(key)
+            self.address_book[keyword] = found
+
     def sortList(self):
         return self.contact_list.sort()
 
     def searchList(self, contact_name):
-        return self.address_book[contact_name]  # Returns sub-dictionary with contact_name's info
+        if self.isNameInAddressBook(contact_name):
+            return self.address_book[contact_name]  # Returns sub-dictionary with contact_name's info
+        else:
+            print("Invalid search criteria or contact does not exist")
 
     def isNameInAddressBook(self, contact_name):
         return contact_name in self.address_book  # Returns true if contact_name is a key in address_book
@@ -67,9 +83,6 @@ class AddressBook:
         for name in self.address_book:
             names.append(name)
         return names
-
-    def get_size(self):
-        return len(self.address_book)
 
 # # For Testing purposes
 # address = AddressBook()
