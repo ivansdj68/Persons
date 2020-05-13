@@ -17,6 +17,7 @@ class AddressBookWindow:
         self.ABWFrame.place(x=0, y=0)
         #self.IWFrame.place(x=300, y=0)
         self.adBook = address_book
+        self.names = self.adBook.get_address_book_names()
 
         self.buttons = [Button(self.master, text="Add"), Button(self.master, text="Sort"),
                         Button(self.master, text="Search")]
@@ -34,12 +35,11 @@ class AddressBookWindow:
 
     def draw_names(self):
         y = 60
-        names = self.adBook.get_address_book_names()
         for c in range(self.adBook.get_size()):
-            button = Button(self.master, text=names[c], relief=GROOVE)  # Draws button with contact name
+            button = Button(self.master, text=self.names[c], relief=GROOVE)  # Draws button with contact name
             button.bind("<Button-1>", func=self.showInfoEvent)
             button.place(x=0, y=y)
-            y += 30
+            y += 26
 
     def assign_option_events(self):
         for b in range(len(self.buttons)):
@@ -65,11 +65,11 @@ class AddressBookWindow:
             return self.searchEvent
 
     def addContactEvent(self, event):
-        InfoWindow(self.IWFrame, self.adBook, None)
+        InfoWindow(self.ABWFrame, self.adBook, None)
 
     def sortContactsEvent(self, event):
-        #self.adBook.sort()
-        print("Sort")
+        self.names = self.adBook.sortList()
+        self.draw_widgets()    
 
     def searchEvent(self, event):
         contact_name = self.search_entry.get()
