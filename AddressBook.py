@@ -29,9 +29,9 @@ class AddressBook:
         contact = {keyword: contact_info}
         # Update dictionary
         self.address_book.update(contact)
-        self.save_Json()
+        self.save_json()
 
-    def editContact(self,keyname,contact_info):
+    def edit_contact(self,keyname,contact_info):
         """ Receives contact name and edited information. If the name of contact has changed it
         will move old values to new contact name. Regardless of outcome it will update the information
         from the new information. Saves at the end to a JSON file."""
@@ -43,14 +43,14 @@ class AddressBook:
         for k, v in self.address_book.items():
             self.address_book[new_keyname][k] = v
         
-        self.save_Json()
+        self.save_json()
 
-    def deleteContact(self, key):
+    def delete_contact(self, key):
         """Method that deletes a contact from a keyword selected from GUI"""
         del self.address_book[key]
-        self.save_Json()
+        self.save_json()
 
-    def sortList(self):
+    def sort_list(self):
         if self.sorted:
             self.contact_list.sort(reverse=False)
             self.sorted = False
@@ -59,35 +59,21 @@ class AddressBook:
             self.sorted = True
         return self.contact_list
 
-    def searchList(self, contact_name):
-        return self.address_book[contact_name]  # Returns sub-dictionary with contact_name's info
+    def search_list(self, contact_name):
+        """ Returns sub-dictionary with contact_name's info """
+        return self.address_book[contact_name] 
 
-    def isNameInAddressBook(self, contact_name):
-        return contact_name in self.address_book  # Returns true if contact_name is a key in address_book
+    def contact_exists(self, contact_name):
+        """ Returns true if contact_name is a key in address_book """
+        return contact_name in self.address_book  
 
-    def get_address_book_names(self):
+    def get_names(self):
         for name in self.address_book:
             self.contact_list.append(name)
         self.contact_list.sort()
         self.sorted = False
         return self.contact_list
 
-    def get_size(self):
-        return len(self.address_book)
-    
-    def save_Json(self):
+    def save_json(self):
         with open('contacts.json','w') as outfile:
             json.dump(self.address_book,outfile,sort_keys=True, indent= 4)
-
-# # For Testing purposes
-# address = AddressBook()
-#
-# # Test Adding
-# add = True
-# while add:
-#     address.add_contact()
-#     repeat = input('Do you wish to continue? ')
-#     add = repeat.lower() in ['yes', 'y']
-#
-# # Test Search
-# address.searchList()

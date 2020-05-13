@@ -1,5 +1,6 @@
 from tkinter import filedialog
 from tkinter import *
+from AddressBookWindow import drawnames
 from PIL import ImageTk, Image
 
 class InfoWindow:
@@ -20,15 +21,15 @@ class InfoWindow:
 
         # Verifies the status of the incoming contact and what to expect
         if self.key is not None:
-            self.contact = self.address_book.searchList(self.key)
+            self.contact = self.address_book.search_list(self.key)
             self.show_contact()
         else:
             self.new_contact()
 
-    def stating_page(self):
-        self.frame_photo.configure(background="grey")
-        self.frame_info.configure(background="yellow")
-        self.frame_button.configure(background="blue")
+    # def stating_page(self):
+    #     self.frame_photo.configure(background="grey")
+    #     self.frame_info.configure(background="yellow")
+    #     self.frame_button.configure(background="blue")
 
     def default_infoLabel(self):
         """Displays the default labels of a contact"""
@@ -49,6 +50,9 @@ class InfoWindow:
         address.grid(row=1, column=1)
         phone.grid(row=2, column=1)
         email.grid(row=3, column=1)
+
+        info = [name.get(),phone.get(),address.get(),email.get()]
+        contact_information = dict(zip(self.default_Labels,info))
         
         button_save_contact = Button(text="Save", padx=5,
                                      command=lambda:
@@ -109,12 +113,11 @@ class InfoWindow:
         self.button2.configure(text="cancel", command=self.cancel)
 
     def save_contact(self):
-        # new_info = [name, phone, email, address]
-        # if self.address_book.isNameInAddressBook(self.contact["Name"]):
-        #     self.address_book.editContact(new_info)
-        # else:
-        #     self.address_book.add_contact(new_info)
-        # self.show_contact()
+        if self.address_book.contact_exists(self.key):
+            self.address_book.editContact(new_info)
+        else:
+            self.address_book.add_contact(new_info)
+        self.show_contact()
         pass
 
     def delete_contact(self):
