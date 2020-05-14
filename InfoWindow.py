@@ -13,7 +13,7 @@ class InfoWindow:
         self.frame_info.place(x=300, y=100)
         self.frame_button.place(x=300, y=250)
 
-        self.button_save = Button(self.frame_button,bg="black",fg="white", text="save",width=10.command=self.save_contact)
+        self.button_save = Button(self.frame_button,bg="black",fg="white", text="save",width=10,command=self.save_contact)
         self.button_edit = Button(self.frame_button,bg="black",fg="white", text="edit",width=10,command=self.edit_contact)
         self.button_delete = Button(self.frame_button,bg="black",fg="white",text="delete", width=10,command=self.delete_contact)
         self.button_cancel = Button(self.frame_button,bg="black",fg="white", text="cancel", width=10,command=self.cancel)
