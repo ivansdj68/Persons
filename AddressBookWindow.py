@@ -39,7 +39,7 @@ class AddressBookWindow:
 
     def draw_names(self):
         y = 60
-        names = self.adBook.get_address_book_names()
+        names = self.adBook.get_names()
         for c in range(len(names)):
             button = Button(self.master,
                             text=names[c],
@@ -76,10 +76,10 @@ class AddressBookWindow:
         elif num == 1:
             return self.sortContactsEvent
         elif num == 2:
-            return self.searchEvent
+            return self
 
     def addContactEvent(self, event):
-        InfoWindow(self.master, self.adBook, self, "new")
+        InfoWindow(self.master, self.adBook, self, None)
 
     def sortContactsEvent(self, event):
         #self.adBook.sort()
