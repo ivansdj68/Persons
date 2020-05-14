@@ -6,9 +6,9 @@ from PIL import ImageTk, Image
 class InfoWindow:
     def __init__(self, win, address_bookObj, contact_name=None):
         # Draws items to be displayed on screen
-        self.frame_photo = Frame(win, height=100, width=300)
-        self.frame_info = Frame(win, height=150, width=300)
-        self.frame_button = Frame(win, height=50, width=300)
+        self.frame_photo = Frame(win, height=100, width=300,background="black")
+        self.frame_info = Frame(win, height=150, width=300,background="black")
+        self.frame_button = Frame(win, height=50, width=300,background="black")
         self.frame_photo.place(x=300, y=0)
         self.frame_info.place(x=300, y=100)
         self.frame_button.place(x=300, y=250)
@@ -67,7 +67,7 @@ class InfoWindow:
 
         i = 0
         for k in self.contact:
-            value_label = Label(self.frame_info, text=self.contact.get(k),width=30)
+            value_label = Label(self.frame_info, bg="black",fg="white", text=self.contact.get(k),width=30)
             value_label.grid(row=i,column=1)
             i+=1
 
