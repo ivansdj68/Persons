@@ -53,8 +53,8 @@ class InfoWindow:
         # button_save_contact = Button(self.frame_info,text="Save", padx=5,
         #                              command=lambda:
         #                              self.save_contact(contact_information))
-        self.button1 = Button(self.frame_button, width=10)
-        self.button2 = Button(self.frame_button, width=10)
+        self.button1 = Button(self.frame_button,bg="black",fg="white", width=10)
+        self.button2 = Button(self.frame_button,bg="black",fg="white", width=10)
         self.button1.grid(row=0, column=0)
         self.button2.grid(row=0, column=1)
 
@@ -80,8 +80,8 @@ class InfoWindow:
         self.emailLabel = Label(self.frame_info, text=self.contact.get("Email"),width=30)
         self.emailLabel.grid(row=3, column=1) """
 
-        self.button1 = Button(self.frame_button, width=10)
-        self.button2 = Button(self.frame_button, width=10)
+        self.button1 = Button(self.frame_button,bg="black",fg="white", width=10)
+        self.button2 = Button(self.frame_button,bg="black",fg="white", width=10)
         self.button1.grid(row=0, column=0)
         self.button2.grid(row=0, column=1)
 
@@ -110,7 +110,7 @@ class InfoWindow:
         self.addressEntry.grid(row=2, column=1)
         self.emailEntry.grid(row=3, column=1)
 
-        self.button_editPhoto = Button(self.frame_photo, text="edit", command=self.edit_photo)
+        self.button_editPhoto = Button(self.frame_photo,bg="black",fg="white", text="edit", command=self.edit_photo)
         self.button_editPhoto.grid(row=0, column=1)
 
         self.button1.configure(text="save",command=lambda: self.save_contact())
