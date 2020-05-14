@@ -31,7 +31,7 @@ class InfoWindow:
         """Displays the default labels of a contact"""
         x = 0
         for i in self.default_Labels:
-            Label(self.frame_info, text=i+": ").grid(row=x, column=0, sticky=W, padx=10, pady=8)
+            Label(self.frame_info,bg="black",fg="white", text=i+": ").grid(row=x, column=0, sticky=W, padx=10, pady=8)
             x += 1
 
     def new_contact(self):
