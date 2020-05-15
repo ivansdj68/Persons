@@ -18,7 +18,6 @@ class AddressBook:
 
        self.contact_list= []
 
-
     def add_contact(self, contact_info):
         """Adds contact info for each field available from contact_info dictionary obtained in
         the InfoWindow. Once added, it updates the address book with new contact. Saves changes to 
@@ -51,6 +50,7 @@ class AddressBook:
         self.save_json()
 
     def sort_list(self):
+        self.contact_list = list(self.address_book)
         if self.sorted:
             self.contact_list.sort(reverse=False)
             self.sorted = False
@@ -68,12 +68,9 @@ class AddressBook:
         return contact_name in self.address_book  
 
     def get_names(self):
-        for name in self.address_book:
-            self.contact_list.append(name)
-        self.contact_list.sort()
-        self.sorted = False
+        self.contact_list = list(self.address_book)
         return self.contact_list
 
     def save_json(self):
         with open('contacts.json','w') as outfile:
-            json.dump(self.address_book,outfile,sort_keys=True, indent= 4)
+            json.dump(self.address_book, outfile, sort_keys=True, indent= 4)

@@ -1,10 +1,9 @@
 from tkinter import filedialog
 from tkinter import *
-# from AddressBookWindow import draw_names
 from PIL import ImageTk, Image
 
 class InfoWindow:
-    def __init__(self, win, address_bookObj, abw_obj, contact_name=None):
+    def __init__(self, win, address_bookObj, ABW_obj, contact_name=None):
         # Draws items to be displayed on screen
         self.frame_photo = Frame(win, height=100, width=300, background="black")
         self.frame_info = Frame(win, height=150, width=300, background="black")
@@ -19,6 +18,7 @@ class InfoWindow:
         self.button_cancel = Button(self.frame_button, bg="black", fg="white", text="cancel", width=10,command=self.cancel)
         self.button_editPhoto = Button(self.frame_photo, bg="black", fg="white", text="edit", width=5, command=self.edit_photo)
 
+        # Entries are made as instance variables to recover text at any moment
         self.name_entry = Entry(self.frame_info, width=30)
         self.address_entry = Entry(self.frame_info, width=30)
         self.phone_entry = Entry(self.frame_info, width=30)
@@ -26,9 +26,9 @@ class InfoWindow:
         
         # Attributes to be utilized
         self.default_Labels = ["Name", "Phone", "Address", "Email"]
-        #self.optional_labels = [] #In case if more labels are needed
+        # self.optional_labels = [] #In case if more labels are needed
         self.address_book = address_bookObj
-        self.address_book_window = abw_obj
+        self.address_book_window = ABW_obj
         self.key = contact_name
         self.contact = None
 
@@ -57,17 +57,6 @@ class InfoWindow:
         self.button_save.grid(row=0, column=0)
         self.button_cancel.grid(row=0, column=1)
 
-        # button_save_contact = Button(self.frame_info,text="Save", padx=5,
-        #                              command=lambda:
-        #                              self.save_contact(contact_information))
-        # self.button1 = Button(self.frame_button,bg="black",fg="white", width=10)
-        # self.button2 = Button(self.frame_button,bg="black",fg="white", width=10)
-        # self.button1.grid(row=0, column=0)
-        # self.button2.grid(row=0, column=1)
-
-        # self.button1.configure(text="save",command=lambda: self.save_contact(contact_information))
-        # self.button2.configure(text="cancel",command=self.cancel)
-
     def show_contact(self):
         self.show_photo()
         self.default_infoLabel()
@@ -78,24 +67,8 @@ class InfoWindow:
             value_label.grid(row=i, column=1)
             i+=1
 
-        """ self.nameLabel = Label(self.frame_info, text=self.contact.get("Name"),width=30)
-        self.nameLabel.grid(row=0, column=1)
-        self.phoneLabel = Label(self.frame_info, text=self.contact.get("Phone"),width=30)
-        self.phoneLabel.grid(row=1, column=1)
-        self.addressLabel = Label(self.frame_info, text=self.contact.get("Address"),width=30)
-        self.addressLabel.grid(row=2, column=1)
-        self.emailLabel = Label(self.frame_info, text=self.contact.get("Email"),width=30)
-        self.emailLabel.grid(row=3, column=1) """
-
         self.button_edit.grid(row=0, column=0)
         self.button_delete.grid(row=0, column=1)
-        # self.button1 = Button(self.frame_button,bg="black",fg="white", width=10)
-        # self.button2 = Button(self.frame_button,bg="black",fg="white", width=10)
-        # self.button1.grid(row=0, column=0)
-        # self.button2.grid(row=0, column=1)
-
-        # self.button1.configure(text="edit", command=self.edit_contact)
-        # self.button2.configure(text="delete", command=self.delete_contact)
 
     def edit_contact(self):
         self.default_infoLabel()
@@ -123,27 +96,27 @@ class InfoWindow:
         self.button_editPhoto.grid(row=0, column=1)
         self.button_save.grid(row=0, column=0)
         self.button_cancel.grid(row=0, column=1)
-        # self.button_editPhoto = Button(self.frame_photo,bg="black",fg="white", text="edit", command=self.edit_photo)
-        # self.button1.configure(text="save",command=lambda: self.save_contact())
-        # self.button2.configure(text="cancel", command=self.cancel)
 
     def save_contact(self):
         new_info = [self.name_entry.get(), self.phone_entry.get(), self.email_entry.get(), self.address_entry.get()]
         contact_information = dict(zip(self.default_Labels, new_info))
+
         if self.address_book.contact_exists(self.key):
             self.address_book.edit_contact(contact_information)
         else:
             self.address_book.add_contact(contact_information)
+        
         self.key = contact_information["Name"]
         self.contact = contact_information
         self.show_contact()
+        self.address_book_window.draw_names()
 
     def delete_contact(self):
         self.address_book.delete_contact(self.key)
+        self.address_book_window.draw_names()
+        self.exit_window()
 
     def cancel(self):
-        # self.button1.grid_forget()
-        # self.button2.grid_forget()
         self.button_save.grid_forget()
         self.button_delete.grid_forget()
         self.button_cancel.grid_forget()
