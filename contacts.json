@@ -1,20 +1,23 @@
 {
     "Juan Pablo Del Pueblo": {
-        "Address": "Calle Jurutungo, Utuado, PR, 00759",
-        "Email": "juanPablo@coqui.net",
+        "Address": "juanPablo@coqui.net",
+        "Email": "787-777-9999",
         "Name": "Juan Pablo Del Pueblo",
-        "Phone": "787-777-9999"
+        "Phone": "Calle Jurutungo, Utuado, PR, 00759",
+        "Photo": "Photos/blank_profile.jpg"
     },
     "Juan Pedro Del Pueblo": {
-        "Address": "Calle Jurutungo, Utuado, PR, 00759",
-        "Email": "juanPedro@coqui.net",
+        "Address": "juanPedro@coqui.net",
+        "Email": "787-797-9999",
         "Name": "Juan Pedro Del Pueblo",
-        "Phone": "787-797-9999"
+        "Phone": "Calle Jurutungo, Utuado, PR, 00759",
+        "Photo": "Photos/blank_profile.jpg"
     },
     "Maria Magdalena del Pilar": {
-        "Address": "Calle Calle, Vieques, PR, 00000",
-        "Email": "maria@coqui.net",
+        "Address": "maria@coqui.net",
+        "Email": "787-787-9999",
         "Name": "Maria Magdalena del Pilar",
-        "Phone": "787-787-9999"
+        "Phone": "Calle Calle, Vieques, PR, 00000",
+        "Photo": "Photos/blank_profile.jpg"
     }
 }
