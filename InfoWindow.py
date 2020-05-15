@@ -68,6 +68,7 @@ class InfoWindow:
             i+=1
 
         self.button_edit.grid(row=0, column=0)
+        self.button_cancel.grid_forget()
         self.button_delete.grid(row=0, column=1)
 
     def edit_contact(self):
@@ -92,7 +93,6 @@ class InfoWindow:
         self.addressEntry.grid(row=2, column=1)
         self.emailEntry.grid(row=3, column=1)
 
-        
         self.button_editPhoto.grid(row=0, column=1)
         self.button_save.grid(row=0, column=0)
         self.button_cancel.grid(row=0, column=1)
