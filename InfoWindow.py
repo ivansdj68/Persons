@@ -16,7 +16,7 @@ class InfoWindow:
         self.button1 = Button(self.frame_button, bg="black", fg="white", width=10)
         self.button2 = Button(self.frame_button, bg="black", fg="white", width=10)
         self.button_editPhoto = Button(self.frame_photo, bg="black", fg="white", text="edit", width=5, command=self.edit_photo)
-        self.button_editPhoto.grid(row=0,column=1)
+        # self.button_editPhoto.grid(row=0,column=1)
         self.button1.grid(row=0,column=0,pady=18)
         self.button2.grid(row=0,column=1,pady=18)
 
@@ -59,8 +59,8 @@ class InfoWindow:
         self.default_infoLabel()
 
         self.name_entry.grid(row=0, column=1)
-        self.address_entry.grid(row=1, column=1)
-        self.phone_entry.grid(row=2, column=1)
+        self.phone_entry.grid(row=1, column=1)
+        self.address_entry.grid(row=2, column=1)
         self.email_entry.grid(row=3, column=1)
 
         self.button1.configure(text="save",command=self.save_contact)
@@ -72,11 +72,10 @@ class InfoWindow:
         self.default_infoLabel()
 
         i = 0
-        for k in self.contact:
+        for k in self.default_Labels:
             value_label = Label(self.frame_info, bg="black",fg="white", text=self.contact.get(k), width=30)
             value_label.grid(row=i, column=1)
             i+=1
-        value_label.grid_forget()
 
         self.button1.configure(text="edit",command=self.edit_contact)
         self.button2.configure(text="delete",command=self.delete_contact)
@@ -84,33 +83,35 @@ class InfoWindow:
     def edit_contact(self):
         self.default_infoLabel()
 
-        self.name_entry = Entry(self.frame_info, width=30)
-        self.name_entry.insert(END, self.contact.get("Name"))
-        self.phone_entry = Entry(self.frame_info, width=30)
-        self.phone_entry.insert(END, self.contact.get("Phone"))
-        self.address_entry = Entry(self.frame_info, width=30)
-        self.address_entry.insert(END, self.contact.get("Address"))
-        self.email_entry = Entry(self.frame_info, width=30)
-        self.email_entry.insert(END, self.contact.get("Email"))
+        self.nameEntry = Entry(self.frame_info, width=30)
+        self.nameEntry.insert(END, self.contact.get("Name"))
+        self.phoneEntry = Entry(self.frame_info, width=30)
+        self.phoneEntry.insert(END, self.contact.get("Phone"))
+        self.addressEntry = Entry(self.frame_info, width=30)
+        self.addressEntry.insert(END, self.contact.get("Address"))
+        self.emailEntry = Entry(self.frame_info, width=30)
+        self.emailEntry.insert(END, self.contact.get("Email"))
 
-        self.name_entry.grid(row=0, column=1)
-        self.phone_entry.grid(row=1, column=1)
-        self.address_entry.grid(row=2, column=1)
-        self.email_entry.grid(row=3, column=1)
+        self.nameEntry.grid(row=0, column=1)
+        self.phoneEntry.grid(row=1, column=1)
+        self.addressEntry.grid(row=2, column=1)
+        self.emailEntry.grid(row=3, column=1)
 
         self.button1.configure(text="save",command=self.save_contact)
         self.button2.configure(text="cancel",command=self.show_contact)
-        # self.button_editPhoto.grid(row=0,column=1)
+        self.button_editPhoto.grid(row=0,column=1)
 
     def save_contact(self):
-        new_info = [self.name_entry.get(), self.phone_entry.get(), self.email_entry.get(), self.address_entry.get()]
+        new_info = [self.name_entry.get(), self.phone_entry.get(), self.address_entry.get(),self.email_entry.get()]
         contact_information = dict(zip(self.default_Labels, new_info))
+
         #creates photo field
         contact_photo = {"Photo": self.photo_path}
         contact_information.update(contact_photo)
 
         if self.address_book.contact_exists(self.key):
-            self.address_book.edit_contact(contact_information)
+            #FixMe ValueError("Circular reference detected") contact.get()
+            self.address_book.edit_contact(self.contact.get("Name"), contact_information)
         else:
             self.address_book.add_contact(contact_information)
         
