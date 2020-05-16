@@ -17,19 +17,20 @@ class AddressBookWindow:
 
         self.address_book = address_book
 
-        self.buttons = [Button(self.master, text="Add", bg=self.master.cget("bg"), fg="white"),
-                        Button(self.master, text="Sort", bg=self.master.cget("bg"), fg="white"),
-                        Button(self.master, text="Search", bg=self.master.cget("bg"), fg="white")]
-        self.buttons[2].place(x=130, y=0)
-        self.buttons[0].place(x=200, y=0)
-        self.buttons[1].place(x=240, y=0)
+        self.add_button = Button(self.master, text="Add", bg=self.master.cget("bg"), fg="white", command=self.add_contact_event())
+        self.sort_button = Button(self.master, text="Sort", bg=self.master.cget("bg"), fg="white", command=self.sort_contact_event())
+        self.search_button = Button(self.master, text="Search", bg=self.master.cget("bg"), fg="white")
+        self.add_button.place(x=200, y=0)
+        self.sort_button.place(x=240, y=0)
+        self.search_button.place(x=130, y=0)
 
         self.search_entry = Entry(self.master,
                                   textvariable="search",
                                   highlightcolor="blue",
                                   highlightbackground="gray",
                                   highlightthickness=1)
-        self.search_entry.bind("<Return>", self.searchEvent)
+        self.search_entry.bind("<Return>", self.search_event)
+        self.search_button.bind("<Button-1>", func=self.search_event)
         self.search_entry.place(x=1, y=1)
         self.search_entry.focus_set()
 
@@ -57,13 +58,13 @@ class AddressBookWindow:
                             bg=self.master.cget("bg"),
                             fg="white")
             # Draws button with contact name
-            button.bind("<Button-1>", func=self.showInfoEvent)
+            button.bind("<Button-1>", func=self.show_info_event)
             button.pack()
 
     def assign_option_events(self):
         for b in range(len(self.buttons)):
             current_button = self.buttons[b]
-            current_button.config(command=self.optionEventSelector(b))
+            current_button.config(command=self.option_event_selector(b))
 
     def draw_widgets(self):
         self.draw_names()
@@ -74,7 +75,7 @@ class AddressBookWindow:
     #     self.frame_contacts.destroy()
     #     self.frame_contacts = copy_frame
 
-    def showInfoEvent(self, event):
+    def show_info_event(self, event):
         self.clicked = event.widget
         contact_name = event.widget.cget("text")  # Gets the name of the clicked contact
         if self.prev_IW_contact is not contact_name:
@@ -84,15 +85,7 @@ class AddressBookWindow:
     def get_clicked_widget(self):
         return self.clicked
 
-    def optionEventSelector(self, num):
-        if num == 0:
-            return self.addContactEvent
-        elif num == 1:
-            return self.sort_contacts_event
-        elif num == 2:
-            return self
-
-    def addContactEvent(self):
+    def add_contact_event(self):
         InfoWindow(self.master, self.address_book, self, None)
 
     def sort_contacts_event(self):
@@ -100,13 +93,12 @@ class AddressBookWindow:
             self.sorted = False
         else:
             self.sorted = True
-
         sorted_names = self.names
         sorted_names.sort(reverse=self.sorted)
         self.change = True
         self.draw_names(sorted_names)
 
-    def searchEvent(self):
+    def search_event(self, event):
         contact_name = self.search_entry.get()
         if self.prev_IW_contact is not contact_name:
             self.prev_IW_contact = contact_name
