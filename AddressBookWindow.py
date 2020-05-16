@@ -17,8 +17,8 @@ class AddressBookWindow:
 
         self.address_book = address_book
 
-        self.add_button = Button(self.master, text="Add", bg=self.master.cget("bg"), fg="white", command=self.add_contact_event())
-        self.sort_button = Button(self.master, text="Sort", bg=self.master.cget("bg"), fg="white", command=self.sort_contact_event())
+        self.add_button = Button(self.master, text="Add", bg=self.master.cget("bg"), fg="white", command=self.add_contact_event)
+        self.sort_button = Button(self.master, text="Sort", bg=self.master.cget("bg"), fg="white", command=self.sort_contacts_event)
         self.search_button = Button(self.master, text="Search", bg=self.master.cget("bg"), fg="white")
         self.add_button.place(x=200, y=0)
         self.sort_button.place(x=240, y=0)
@@ -38,11 +38,10 @@ class AddressBookWindow:
 
         self.sorted = False
         self.change = False
-        self.first = True
 
         self.clicked = None
 
-        self.draw_widgets()
+        self.draw_names()
 
     def draw_names(self):
         # if self.first==False:
@@ -60,15 +59,6 @@ class AddressBookWindow:
             # Draws button with contact name
             button.bind("<Button-1>", func=self.show_info_event)
             button.pack()
-
-    def assign_option_events(self):
-        for b in range(len(self.buttons)):
-            current_button = self.buttons[b]
-            current_button.config(command=self.option_event_selector(b))
-
-    def draw_widgets(self):
-        self.draw_names()
-        self.assign_option_events()
 
     # def remove_contact_buttons(self):
     #     copy_frame = Frame(self.master, width=150, height=240, bg="black")
