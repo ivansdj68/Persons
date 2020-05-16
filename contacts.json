@@ -1,1 +1,20 @@
-{}
+{
+    "Juan Pablo Del Pueblo": {
+        "Name": "Juan Pablo Del Pueblo",
+        "Phone": "787-777-9999",
+        "Email": "juanPablo@coqui.net",
+        "Address": "Calle Jurutungo, Utuado, PR, 00759"
+    },
+    "Maria Magdalena del Pilar": {
+        "Name": "Maria Magdalena del Pilar",
+        "Phone": "787-787-9999",
+        "Email": "maria@coqui.net",
+        "Address": "Calle Calle, Vieques, PR, 00000"
+    },
+    "Juan Pedro Del Pueblo": {
+        "Name": "Juan Pedro Del Pueblo",
+        "Phone": "787-797-9999",
+        "Email": "juanPedro@coqui.net",
+        "Address": "Calle Jurutungo, Utuado, PR, 00759"
+    }
+}

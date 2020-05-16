@@ -3,7 +3,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 class InfoWindow:
-    def __init__(self, win, address_bookObj, ABW_obj, contact_name=None):
+    def __init__(self, win, address_bookObj, abw_obj, contact_name=None):
         # Draws items to be displayed on screen
         self.frame_photo = Frame(win, height=100, width=300, background="black")
         self.frame_info = Frame(win, height=150, width=300, background="black")
@@ -35,9 +35,8 @@ class InfoWindow:
         
         # Attributes to be utilized
         self.default_Labels = ["Name", "Phone", "Address", "Email"]
-        # self.optional_labels = [] #In case if more labels are needed
         self.address_book = address_bookObj
-        self.address_book_window = ABW_obj
+        self.address_book_window = abw_obj
         self.key = contact_name
         self.contact = None
 
@@ -63,9 +62,9 @@ class InfoWindow:
         self.address_entry.grid(row=2, column=1)
         self.email_entry.grid(row=3, column=1)
 
-        self.button1.configure(text="save",command=self.save_contact)
-        self.button2.configure(text="cancel",command=self.exit_window)
-        self.button_editPhoto.grid(row=0,column=1)
+        self.button1.configure(text="save", command=self.save_contact)
+        self.button2.configure(text="cancel", command=self.exit_window)
+        self.button_editPhoto.grid(row=0, column=1)
 
     def show_contact(self):
         self.show_photo()
@@ -77,8 +76,8 @@ class InfoWindow:
             value_label.grid(row=i, column=1)
             i+=1
 
-        self.button1.configure(text="edit",command=self.edit_contact)
-        self.button2.configure(text="delete",command=self.delete_contact)
+        self.button1.configure(text="edit", command=self.edit_contact)
+        self.button2.configure(text="delete", command=self.delete_contact)
 
     def edit_contact(self):
         self.default_infoLabel()
@@ -97,9 +96,9 @@ class InfoWindow:
         self.address_entry.grid(row=2, column=1)
         self.email_entry.grid(row=3, column=1)
 
-        self.button1.configure(text="save",command=self.save_contact)
-        self.button2.configure(text="cancel",command=self.show_contact)
-        self.button_editPhoto.grid(row=0,column=1)
+        self.button1.configure(text="save", command=self.save_contact)
+        self.button2.configure(text="cancel", command=self.show_contact)
+        self.button_editPhoto.grid(row=0, column=1)
 
     def save_contact(self):
         new_info = [self.name_entry.get(), self.phone_entry.get(), self.address_entry.get(),self.email_entry.get()]
@@ -121,7 +120,7 @@ class InfoWindow:
         self.address_book_window.draw_names()
 
     def delete_contact(self):
-        self.address_book.delete_contact(self.key)
+        #self.address_book.delete_contact(self.key)
         self.address_book_window.draw_names()
         self.exit_window()
 
@@ -137,7 +136,10 @@ class InfoWindow:
         self.show_contact()
 
     def show_photo(self):
-        image = Image.open(self.contact.get("Photo"))
+        try:
+            image = Image.open(self.contact.get("Photo"))
+        except AttributeError:
+            image = Image.open("Photos/blank_profile.jpg")
         image = image.resize((100, 100), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(image)
         self.image.configure(image=self.photo)

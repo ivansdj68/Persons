@@ -18,7 +18,7 @@ class AddressBookWindow:
         self.address_book = address_book
 
         self.buttons = [Button(self.master, text="Add", bg=self.master.cget("bg"), fg="white"),
-                        Button(self.master, text="Sort", bg=self.master.cget("bg"), fg="white", state=DISABLED),
+                        Button(self.master, text="Sort", bg=self.master.cget("bg"), fg="white"),
                         Button(self.master, text="Search", bg=self.master.cget("bg"), fg="white")]
         self.buttons[2].place(x=130, y=0)
         self.buttons[0].place(x=200, y=0)
@@ -44,13 +44,12 @@ class AddressBookWindow:
         self.draw_widgets()
 
     def draw_names(self):
-        if self.first==False:
-           self.remove_contact_buttons()
-        self.first = False
+        # if self.first==False:
+        #    self.remove_contact_buttons()
+        # self.first = False
         self.frame_contacts.place(x=0, y=60)
         d_y = 60
         names = self.address_book.get_names()
-        print(names)
         for c in names:
             button = Button(self.frame_contacts,
                             text=c,
@@ -70,10 +69,10 @@ class AddressBookWindow:
         self.draw_names()
         self.assign_option_events()
 
-    def remove_contact_buttons(self):
-        copy_frame = Frame(self.master, width=150, height=240, bg="black")
-        self.frame_contacts.destroy()
-        self.frame_contacts = copy_frame
+    # def remove_contact_buttons(self):
+    #     copy_frame = Frame(self.master, width=150, height=240, bg="black")
+    #     self.frame_contacts.destroy()
+    #     self.frame_contacts = copy_frame
 
     def showInfoEvent(self, event):
         self.clicked = event.widget
@@ -112,9 +111,3 @@ class AddressBookWindow:
         if self.prev_IW_contact is not contact_name:
             self.prev_IW_contact = contact_name
             InfoWindow(self.master, self.address_book, self, contact_name)
-
-root = Tk()
-#root.withdraw Withdraw this widget from the screen such that it is unmapped and forgotten by the window manager. Re-draw it with wm_deiconify.
-ab = AddressBook()
-AddressBookWindow(root, ab)
-root.mainloop()
