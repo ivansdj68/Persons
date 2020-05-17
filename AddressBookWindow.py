@@ -19,8 +19,8 @@ class AddressBookWindow:
 
         self.frame_contacts = Frame(self.master, width=150, height=240, bg="black")
 
-        self.scroll_bar = Scrollbar(self.master)
-        self.scroll_bar.place(x=285, y=0)
+        # self.scroll_bar = Scrollbar(self.master)
+        # self.scroll_bar.place(x=285, y=0)
 
         self.address_book = address_book
 
