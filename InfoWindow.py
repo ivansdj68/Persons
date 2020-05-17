@@ -111,7 +111,6 @@ class InfoWindow:
         contact_information.update(contact_photo)
 
         if self.address_book.contact_exists(self.key):
-            #FixMe ValueError("Circular reference detected") contact.get()
             self.address_book.edit_contact(self.key, contact_information)
         else:
             self.address_book.add_contact(contact_information)
@@ -126,17 +125,6 @@ class InfoWindow:
         self.address_book.delete_contact(self.key)
         self.address_book_window.draw_names()
         self.exit_window()
-
-    def cancel(self):
-        self.button1.grid_forget()
-        self.button2.grid_forget()
-        self.button_editPhoto.grid_forget()
-        self.nameEntry.grid_forget()
-        self.phoneEntry.grid_forget()
-        self.addressEntry.grid_forget()
-        self.emailEntry.grid_forget()
-
-        self.show_contact()
 
     def show_photo(self):
         try:
