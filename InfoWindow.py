@@ -119,6 +119,7 @@ class InfoWindow:
         
         self.key = contact_information["Name"]
         self.contact = contact_information
+        self.address_book_window.draw_names()
         self.show_contact()
 
     def delete_contact(self):

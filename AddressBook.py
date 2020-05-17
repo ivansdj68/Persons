@@ -68,6 +68,7 @@ class AddressBook:
 
     def get_names(self):
         self.contact_list = list(self.address_book)
+        self.contact_list.sort()
         return self.contact_list
 
     def save_json(self):
