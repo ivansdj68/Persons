@@ -19,7 +19,12 @@ class AddressBookWindow:
 
         self.frame_contacts = Frame(self.master, width=150, height=240, bg="black")
 
+        self.scroll_bar = Scrollbar(self.master)
+        self.scroll_bar.place(x=285, y=0)
+
         self.address_book = address_book
+
+        self.button_list = []
 
         self.add_button = Button(self.master, text="Add", bg=self.master.cget("bg"), fg="white", command=self.add_contact_event)
         self.search_button = Button(self.master, text="Search", bg=self.master.cget("bg"), fg="white")
@@ -36,6 +41,8 @@ class AddressBookWindow:
         self.search_button.bind("<Button-1>", func=self.search_event)
         self.search_entry.place(x=1, y=1)
         self.search_entry.focus_set()
+        
+        self.frame_search = Frame(self.master, width=126, height=100, bg="gray")
 
         self.first = True
 
@@ -68,7 +75,7 @@ class AddressBookWindow:
 
     def show_info_event(self, event):
         """Signals the contact to be shown in InfoWindow."""
-        self.clicked = event.widget
+        self.frame_search.place_forget()
         contact_name = event.widget.cget("text")  # Gets the name of the clicked contact
         if self.prev_IW_contact is not contact_name:
             self.prev_IW_contact = contact_name
@@ -82,12 +89,19 @@ class AddressBookWindow:
         suggest = []
         characters = event.widget.get()
         if characters == '':
+            self.frame_search.place_forget()
             return None
-        contacts = self.address_book.get_names()
-        for name in contacts:
+        self.frame_search.place(x=1, y=23)
+        for name in self.address_book.get_names():
             if characters.lower() in name.lower():
                 suggest.append(name)
-        print(suggest)
+        for button in self.button_list:
+            button.destroy()
+        for name in suggest:
+            b = Button(master=self.frame_search, text=name, relief=FLAT)
+            b.bind("<Button-1>", func=self.show_info_event)
+            b.pack()
+            self.button_list.append(b)
 
     def search_event(self, event):
         """"Sends InfoWindow the contact to show if present in address book"""

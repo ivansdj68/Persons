@@ -20,9 +20,9 @@ def look_for_matches(event):
         if characters.lower() in name.lower():
             suggest.append(name)
     for button in button_list:
-        pass
+        button.destroy()
     for name in suggest:
-        b = Button(root, text=name)
+        b = Button(root, text=name, relief=FLAT)
         b.pack()
         button_list.append(b)
     print(suggest)
