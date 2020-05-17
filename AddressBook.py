@@ -30,7 +30,7 @@ class AddressBook:
         self.address_book.update(contact)
         self.save_json()
 
-    def edit_contact(self,keyname,contact_info):
+    def edit_contact(self, keyname, contact_info):
         """ Receives contact name and edited information. If the name of contact has changed it
         will move old values to new contact name. Regardless of outcome it will update the information
         from the new information. Saves at the end to a JSON file."""
@@ -39,8 +39,7 @@ class AddressBook:
         if keyname != new_keyname:
             self.address_book[new_keyname] = self.address_book.pop(keyname)
         
-        for k, v in self.address_book.items():
-            self.address_book[new_keyname][k] = v
+        self.address_book[new_keyname] = contact_info
         
         self.save_json()
 

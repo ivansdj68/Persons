@@ -9,6 +9,7 @@ class AddressBookWindow:
         """Receives a tkinter root and AddressBook instance."""
         self.master = master
         self.master.title("Persons")
+        self.master.resizable(False, False)
         window_width = 600
         window_height = 300
         display_x = str(self.master.winfo_screenwidth()//2 - window_width//2)
@@ -21,10 +22,8 @@ class AddressBookWindow:
         self.address_book = address_book
 
         self.add_button = Button(self.master, text="Add", bg=self.master.cget("bg"), fg="white", command=self.add_contact_event)
-        self.sort_button = Button(self.master, text="Sort", bg=self.master.cget("bg"), fg="white", command=self.sort_contacts_event)
         self.search_button = Button(self.master, text="Search", bg=self.master.cget("bg"), fg="white")
         self.add_button.place(x=200, y=0)
-        self.sort_button.place(x=240, y=0)
         self.search_button.place(x=130, y=0)
 
         self.search_entry = Entry(self.master,
@@ -38,20 +37,17 @@ class AddressBookWindow:
         self.search_entry.place(x=1, y=1)
         self.search_entry.focus_set()
 
+        self.first = True
+
         self.prev_IW_contact = None
-
-        self.sorted = False
-        self.change = False
-
-        self.clicked = None
 
         self.draw_names()
 
     def draw_names(self):
         """Makes names list with buttons to access each contact's info."""
-        # if self.first==False:
-        #    self.remove_contact_buttons()
-        # self.first = False
+        if self.first==False:
+           self.remove_contact_buttons()
+        self.first = False
         self.frame_contacts.place(x=0, y=60)
         d_y = 60
         names = self.address_book.get_names()
@@ -65,10 +61,10 @@ class AddressBookWindow:
             button.bind("<Button-1>", func=self.show_info_event)
             button.pack()
 
-    # def remove_contact_buttons(self):
-    #     copy_frame = Frame(self.master, width=150, height=240, bg="black")
-    #     self.frame_contacts.destroy()
-    #     self.frame_contacts = copy_frame
+    def remove_contact_buttons(self):
+        copy_frame = Frame(self.master, width=150, height=240, bg="black")
+        self.frame_contacts.destroy()
+        self.frame_contacts = copy_frame
 
     def show_info_event(self, event):
         """Signals the contact to be shown in InfoWindow."""
@@ -78,22 +74,9 @@ class AddressBookWindow:
             self.prev_IW_contact = contact_name
             InfoWindow(self.master, self.address_book, self, contact_name)
 
-    def get_clicked_widget(self):
-        return self.clicked
-
     def add_contact_event(self):
         """Creates an InfoWindow instance to create new contact."""
         InfoWindow(self.master, self.address_book, self, None)
-
-    def sort_contacts_event(self):
-        if self.sorted == True:
-            self.sorted = False
-        else:
-            self.sorted = True
-        sorted_names = self.names
-        sorted_names.sort(reverse=self.sorted)
-        self.change = True
-        self.draw_names(sorted_names)
 
     def entry_matches(self, event):
         suggest = []
@@ -102,7 +85,7 @@ class AddressBookWindow:
             return None
         contacts = self.address_book.get_names()
         for name in contacts:
-            if characters in name:
+            if characters.lower() in name.lower():
                 suggest.append(name)
         print(suggest)
 

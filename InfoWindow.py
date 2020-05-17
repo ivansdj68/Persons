@@ -80,6 +80,8 @@ class InfoWindow:
         self.button2.configure(text="delete", command=self.delete_contact)
 
     def edit_contact(self):
+        self.frame_info.grid_forget()
+
         self.default_infoLabel()
 
         self.name_entry = Entry(self.frame_info, width=30)
@@ -110,17 +112,17 @@ class InfoWindow:
 
         if self.address_book.contact_exists(self.key):
             #FixMe ValueError("Circular reference detected") contact.get()
-            self.address_book.edit_contact(self.contact.get("Name"), contact_information)
+            self.address_book.edit_contact(self.key, contact_information)
         else:
             self.address_book.add_contact(contact_information)
+            self.address_book_window.draw_names()
         
         self.key = contact_information["Name"]
         self.contact = contact_information
         self.show_contact()
-        self.address_book_window.draw_names()
 
     def delete_contact(self):
-        #self.address_book.delete_contact(self.key)
+        self.address_book.delete_contact(self.key)
         self.address_book_window.draw_names()
         self.exit_window()
 
