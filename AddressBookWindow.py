@@ -19,9 +19,6 @@ class AddressBookWindow:
 
         self.frame_contacts = Frame(self.master, width=150, height=240, bg="black")
 
-        # self.scroll_bar = Scrollbar(self.master)
-        # self.scroll_bar.place(x=285, y=0)
-
         self.address_book = address_book
 
         self.button_list = []
@@ -56,7 +53,6 @@ class AddressBookWindow:
            self.remove_contact_buttons()
         self.first = False
         self.frame_contacts.place(x=0, y=60)
-        d_y = 60
         names = self.address_book.get_names()
         for c in names:
             # Draws button with contact name
