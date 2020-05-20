@@ -94,7 +94,7 @@ class AddressBookWindow:
         """Signals the contact to be shown in InfoWindow."""
         self.frame_search.place_forget()
         event.widget.focus_set()
-        contact_name = event.widget.cget("text")  # Gets the name of the clicked contact
+        contact_name = event.widget.cget("text") # Gets the name of the clicked contact
         if self.prev_IW_contact is not contact_name:
             self.prev_IW_contact = contact_name
             InfoWindow(self.master, self.address_book, self, contact_name)
