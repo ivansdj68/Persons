@@ -1,4 +1,32 @@
 {
+    "Amanda": {
+        "Address": "",
+        "Email": "",
+        "Name": "Amanda",
+        "Phone": "",
+        "Photo": "Photos/blank_profile.jpg"
+    },
+    "Hiram": {
+        "Address": "",
+        "Email": "",
+        "Name": "Hiram",
+        "Phone": "",
+        "Photo": "Photos/blank_profile.jpg"
+    },
+    "Ivan": {
+        "Address": "",
+        "Email": "",
+        "Name": "Ivan",
+        "Phone": "",
+        "Photo": "Photos/blank_profile.jpg"
+    },
+    "Jose": {
+        "Address": "",
+        "Email": "",
+        "Name": "Jose",
+        "Phone": "",
+        "Photo": "Photos/blank_profile.jpg"
+    },
     "Juan Pablo Del Pueblo": {
         "Address": "Calle Jurutungo, Utuado, PR, 00759",
         "Email": "juanPablo@coqui.net",
@@ -13,11 +41,39 @@
         "Phone": "787-797-9999",
         "Photo": "Photos/blank_profile.jpg"
     },
+    "Julio": {
+        "Address": "",
+        "Email": "",
+        "Name": "Julio",
+        "Phone": "",
+        "Photo": "Photos/blank_profile.jpg"
+    },
+    "Karen": {
+        "Address": "",
+        "Email": "",
+        "Name": "Karen",
+        "Phone": "",
+        "Photo": "Photos/blank_profile.jpg"
+    },
+    "Maria Cruz": {
+        "Address": "",
+        "Email": "",
+        "Name": "Maria Cruz",
+        "Phone": "",
+        "Photo": "Photos/blank_profile.jpg"
+    },
     "Maria Magdalena del Pilar": {
         "Address": "Calle Calle, Vieques, PR, 00000",
         "Email": "maria@coqui.net",
         "Name": "Maria Magdalena del Pilar",
         "Phone": "787-787-9999",
+        "Photo": "Photos/blank_profile.jpg"
+    },
+    "Samuel": {
+        "Address": "",
+        "Email": "",
+        "Name": "Samuel",
+        "Phone": "",
         "Photo": "Photos/blank_profile.jpg"
     }
 }

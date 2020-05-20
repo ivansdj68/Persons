@@ -17,10 +17,10 @@ class AddressBookWindow:
         self.master.geometry(str(window_width) + 'x' + str(window_height) + '+' + display_x + '+' + display_y)
         self.master.config(bg="black")
 
-        self.frame_contacts = Frame(self.master, width=150, height=240, bg="black")
+        self.frame_contacts = Frame(self.master, width=300, height=240, bg="black")
         
-        self.scroll_bar = Scrollbar(self.frame_contacts)
-        self.scroll_bar.pack(padx=135, side=RIGHT, fill=Y)
+        # self.scroll_bar = Scrollbar(self.frame_contacts)
+        # self.scroll_bar.pack(padx=135, side=RIGHT, fill=Y)
 
         self.address_book = address_book
 
