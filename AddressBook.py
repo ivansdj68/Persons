@@ -2,11 +2,13 @@ import json
 import os.path
 
 class AddressBook:
+    """Simulates an address book with a JSON file"""
+
     def __init__(self):
        """Constructor that will initialize Address Book from a JSON file, 
         if file is not found it will create a new JSON file"""
        
-       self.address_book ={}
+       self.address_book = {}
 
        if os.path.isfile('contacts.json'):
            with open('contacts.json') as json_file:
@@ -73,5 +75,5 @@ class AddressBook:
 
     def save_json(self):
         with open('contacts.json','w') as outfile:
-            json.dump(self.address_book, outfile, sort_keys=True, indent= 4)
+            json.dump(self.address_book, outfile, sort_keys=True, indent=4)
             
