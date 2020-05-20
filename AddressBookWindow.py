@@ -120,8 +120,8 @@ class AddressBookWindow:
         for name in suggest:
             b = Button(master=self.frame_search, text=name, relief=FLAT, overrelief=GROOVE)
             b.bind("<Button-1>", func=self.show_info_event)
-            b.bind("<Enter>", func=self.change_button_color)
-            b.bind("<Leave>", func=self.change_button_color)
+            b.bind("<Enter>", self.change_button_color)
+            b.bind("<Leave>", self.change_button_color)
             b.pack()
             self.button_list.append(b)
     

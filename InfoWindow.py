@@ -5,7 +5,7 @@ from PIL import ImageTk, Image
 class InfoWindow:
     """Window to add/show/edit information of a contact."""
 
-    def __init__(self, win, address_bookObj, abw_obj, contact_name=None):
+    def __init__(self, win, address_book_obj, abw_obj, contact_name=None):
         """Receives a tkinter window, AddressBook object, AddressBookWindow object and, either a new or an existing contact."""
 
         # Draws items to be displayed on screen
@@ -22,6 +22,12 @@ class InfoWindow:
         self.button_editPhoto = Button(self.frame_photo, bg="black", fg="white", text="edit", width=5, command=self.edit_photo)
         self.button1.grid(row=0,column=0,pady=18)
         self.button2.grid(row=0,column=1,pady=18)
+        self.button1.bind("<Enter>", func=self.change_button_color)
+        self.button1.bind("<Leave>", func=self.change_button_color)
+        self.button2.bind("<Enter>", func=self.change_button_color)
+        self.button2.bind("<Leave>", func=self.change_button_color)
+        self.button_editPhoto.bind("<Enter>", func=self.change_button_color)
+        self.button_editPhoto.bind("<Leave>", func=self.change_button_color)
 
         # Entries are made as instance variables to recover text at any moment
         self.name_entry = Entry(self.frame_info, width=35)
@@ -165,3 +171,15 @@ class InfoWindow:
         self.frame_photo.destroy()
         self.frame_info.destroy()
         self.frame_button.destroy()
+
+    def change_button_color(self, event):
+        """Changes button color when mouse pointer enters or leaves"""
+        button_bg = event.widget.cget("bg")
+        if button_bg=="SystemButtonFace":
+            event.widget.config(bg="SystemHighlight")
+        elif button_bg=="SystemHighlight":
+            event.widget.config(bg="SystemButtonFace")
+        elif button_bg=="black":
+            event.widget.config(bg="SystemButtonShadow")
+        elif button_bg=="SystemButtonShadow":
+            event.widget.config(bg="black")
