@@ -1,2 +1,2 @@
 # Persons
-A(n attempt at a) MS People clone
+An (attempt at a) MS People clone
